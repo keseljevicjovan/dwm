@@ -55,6 +55,22 @@ static const Layout layouts[] = {
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
+/* Control Media Players */
+static const char *medplaypausecmd[] = { "playerctl", "play-pause", NULL };
+static const char *mednextcmd[] = { "playerctl", "next", NULL };
+static const char *medprevcmd[] = { "playerctl", "previous", NULL };
+static const char *mutecmd[] = { "pactl", "set-sink-mute", "0", "toggle", NULL };
+static const char *volupcmd[] = { "pactl", "set-sink-volume", "0", "+5%", NULL };
+static const char *voldowncmd[] = { "pactl", "set-sink-volume", "0", "-5%", NULL };
+
+/* Brightness */
+static const char *brightness_up[]   = { "brightnessctl","s","5%+", NULL };
+static const char *brightness_down[] = { "brightnessctl","s","5%-", NULL };
+
+/* Picom */
+static const char *kill_picom[] = { "pkill", "picom", NULL};
+static const char *start_picom[] = { "picom", NULL };
+
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
@@ -91,7 +107,17 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	TAGKEYS(                        XK_1,                      0)
+  { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = kill_picom } },
+  { MODKEY|ControlMask,           XK_p,      spawn,          {.v = start_picom } },
+  { 0,                     XF86XK_AudioMute, spawn,          {.v = mutecmd } },
+  { 0,              XF86XK_AudioLowerVolume, spawn,          {.v = voldowncmd } },
+  { 0,              XF86XK_AudioRaiseVolume, spawn,          {.v = volupcmd } },
+  { 0,                     XF86XK_AudioPlay, spawn,          {.v = medplaypausecmd } },
+  { 0,                     XF86XK_AudioNext, spawn,          {.v = mednextcmd } },
+  { 0,                     XF86XK_AudioPrev, spawn,          {.v = medprevcmd } },
+  { 0,        XF86XK_MonBrightnessUp  , spawn,          {.v = brightness_up } },
+  { 0,        XF86XK_MonBrightnessDown, spawn,          {.v = brightness_down } },
+  TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
 	TAGKEYS(                        XK_4,                      3)
