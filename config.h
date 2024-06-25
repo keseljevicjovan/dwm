@@ -79,6 +79,10 @@ static const char *brightness_down[] = { "brightnessctl","s","5%-", NULL };
 static const char *kill_picom[] = { "pkill", "picom", NULL};
 static const char *start_picom[] = { "picom", NULL };
 
+/* Screenshot */
+static const char *screenshot[] = { "screenshot", NULL};
+static const char *screenshot_select[] = { "screenshot", "select", NULL};
+
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
@@ -94,6 +98,8 @@ static const Key keys[] = {
 	{ MODKEY, 			                XK_b,	     spawn,	         {.v = browser }  },
 	{ MODKEY, 			                XK_r,	     spawn,	         {.v = file_manager }  },
   { MODKEY,                       XK_e,      spawn,          {.v = editor} },
+  { 0,                            XK_Print,  spawn,          {.v = screenshot } },
+  { MODKEY,                       XK_Print,  spawn,          {.v = screenshot_select } },
   { MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
