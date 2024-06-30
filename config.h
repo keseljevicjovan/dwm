@@ -129,6 +129,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+	{ MODKEY|ControlMask,           XK_j,      pushdown,       {0} },
+	{ MODKEY|ControlMask,           XK_k,      pushup,         {0} },
   { 0,                     XF86XK_AudioMute, spawn,          {.v = mutecmd } },
   { 0,              XF86XK_AudioLowerVolume, spawn,          {.v = voldowncmd } },
   { 0,              XF86XK_AudioRaiseVolume, spawn,          {.v = volupcmd } },
